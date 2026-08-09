@@ -1,8 +1,71 @@
-import { auth } from '@clerk/nextjs';
+import { auth, clerkClient } from '@clerk/nextjs';
 import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
+
+// GET /api/messages/[userId] — thread between the current user and [userId]
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: { userId: string } }
+) {
+  try {
+    const { userId } = auth();
+    if (!userId) {
+      return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+    }
+
+    const partnerId = params.userId;
+
+    // Resolve partner (Clerk name/avatar + profile username)
+    let partner = { id: partnerId, name: 'Unknown user', imageUrl: '' as string | null, username: '' };
+    try {
+      const user = await clerkClient.users.getUser(partnerId);
+      const profile = await db.profile.findFirst({ where: { userId: partnerId } });
+      const name = [user.firstName, user.lastName].filter(Boolean).join(' ').trim();
+      partner = {
+        id: partnerId,
+        name: name || profile?.username || 'Unknown user',
+        imageUrl: user.imageUrl ?? profile?.profilePicture ?? '',
+        username: profile?.username || ''
+      };
+    } catch {
+      // partner may not exist — keep fallback
+    }
+
+    const conversation = await db.conversation.findFirst({
+      where: {
+        AND: [
+          { participants: { has: userId } },
+          { participants: { has: partnerId } }
+        ]
+      }
+    });
+
+    const messages = conversation
+      ? await db.message.findMany({
+          where: { conversationId: conversation.id },
+          orderBy: { createdAt: 'asc' }
+        })
+      : [];
+
+    return NextResponse.json({
+      success: true,
+      conversationId: conversation?.id ?? null,
+      partner,
+      messages: messages.map((m) => ({
+        id: m.id,
+        content: m.content,
+        senderId: m.senderId,
+        createdAt: m.createdAt,
+        fromMe: m.senderId === userId
+      }))
+    });
+  } catch (error) {
+    console.error('Error loading thread:', error);
+    return NextResponse.json({ success: false, message: 'Failed to load thread' }, { status: 500 });
+  }
+}
 
 export async function POST(
   req: NextRequest,

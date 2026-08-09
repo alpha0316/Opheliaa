@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import { useAuth } from '@clerk/nextjs';
+import { MessageCircle } from 'lucide-react';
 
 import LearnDropdown from '@/components/learn-dropdown';
 import ProfileMenu from '@/components/profile-menu';
@@ -116,6 +117,13 @@ export default function Navbar() {
               className='hidden xl:flex items-center text-luxury-label tracking-luxury text-white bg-lux-black hover:bg-lux-dark transition-colors duration-300 px-5 py-2.5 font-semibold'
             >
               Share Work
+            </Link>
+            <Link
+              href='/messages'
+              aria-label='Messages'
+              className='hidden lg:flex items-center text-lux-mid hover:text-lux-black transition-colors duration-300'
+            >
+              <MessageCircle size={18} />
             </Link>
             <ProfileMenu />
           </>

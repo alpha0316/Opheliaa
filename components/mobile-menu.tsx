@@ -105,6 +105,9 @@ export default function MobileMenu({ userId }: MobileMenuProps) {
                 <Link href='/upload-new' onClick={() => setOpen(false)} className='font-medium'>
                   Share work
                 </Link>
+                <Link href='/messages' onClick={() => setOpen(false)} className='font-medium'>
+                  Messages
+                </Link>
                 <Link href='/account' onClick={() => setOpen(false)} className='font-medium'>
                   Account
                 </Link>

@@ -40,7 +40,11 @@ export default authMiddleware({
     '/api/instructor',
     // About page and public stats
     '/about',
-    '/api/public/(.*)'
+    '/api/public/(.*)',
+    // Company pages — publicly viewable
+    '/careers',
+    '/press',
+    '/contact'
   ]
 });
 

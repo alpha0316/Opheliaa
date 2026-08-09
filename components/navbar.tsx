@@ -12,7 +12,7 @@ import MobileMenu from '@/components/mobile-menu';
 
 const NAV_LINKS = [
   { href: '/find-talent', text: 'Find Talent' },
-  { href: '/',            text: 'Inspiration' },
+  { href: '/advertise',   text: 'Advertising' },
   { href: '/blog',        text: 'Journal' },
   { href: '/',            text: 'Learn Design', isDropdown: true },
   { href: '/jobs',        text: 'Jobs' }

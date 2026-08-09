@@ -33,20 +33,6 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!githubUrl) {
-      return NextResponse.json(
-        { success: false, error: 'GitHub URL is required.' },
-        { status: 400 }
-      );
-    }
-
-    if (!linkedinUrl) {
-      return NextResponse.json(
-        { success: false, error: 'LinkedIn URL is required.' },
-        { status: 400 }
-      );
-    }
-
     const currentUsername = await db.profile.findUnique({
       where: {
         username,
@@ -77,8 +63,8 @@ export async function POST(req: Request) {
           userId,
           username,
           bio,
-          githubUrl,
-          linkedinUrl
+          githubUrl: githubUrl || null,
+          linkedinUrl: linkedinUrl || null
         }
       });
     } else {
@@ -90,8 +76,8 @@ export async function POST(req: Request) {
           userId,
           username,
           bio,
-          githubUrl,
-          linkedinUrl
+          githubUrl: githubUrl || null,
+          linkedinUrl: linkedinUrl || null
         }
       });
     }

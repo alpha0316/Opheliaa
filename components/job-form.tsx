@@ -70,14 +70,18 @@ export default function JobForm({ job }: JobFormProps) {
   });
 
   const fashionJobCategories = [
-    { value: 'fashion-design', label: 'Fashion Design' },
-    { value: 'tailor-seamstress', label: 'Tailor/Seamstress' },
-    { value: 'pattern-making', label: 'Pattern Making' },
-    { value: 'fashion-styling', label: 'Fashion Styling' },
-    { value: 'wardrobe-consulting', label: 'Wardrobe Consulting' },
-    { value: 'fashion-marketing', label: 'Fashion Marketing' },
-    { value: 'fashion-writing', label: 'Fashion Writing' },
-    { value: 'other-fashion', label: 'Other Fashion Jobs' }
+    { value: 'Animation', label: 'Animation' },
+    { value: 'Branding', label: 'Branding' },
+    { value: 'Illustration', label: 'Illustration' },
+    { value: 'Pattern Making', label: 'Pattern Making' },
+    { value: 'Garment Design', label: 'Garment Design' },
+    { value: '3D Fashion Design', label: '3D Fashion Design' },
+    { value: 'Sketches & Concepts', label: 'Sketches & Concepts' },
+    { value: 'Jewelry & Accessories', label: 'Jewelry & Accessories' },
+    { value: 'Fashion Photography', label: 'Fashion Photography' },
+    { value: 'NFT / Digital Ownership Fashion', label: 'NFT / Digital Ownership Fashion' },
+    { value: 'Metaverse Wearables', label: 'Metaverse Wearables' },
+    { value: 'Others', label: 'Others' }
   ];
 
   const jobTypes = [

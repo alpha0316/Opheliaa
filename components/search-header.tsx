@@ -56,7 +56,7 @@ export default function SearchHeader({ search }: SearchHeaderProps) {
     router.push(buildUrl({ search: searchVal }));
   };
 
-  if (search === undefined) return null;
+  if (search === undefined && !category) return null;
 
   return (
     <section>
@@ -71,15 +71,21 @@ export default function SearchHeader({ search }: SearchHeaderProps) {
             Back to Discover
           </Link>
 
-          {search !== '' && (
+          {(search || category) && (
             <div>
               <h1 className='font-display text-4xl md:text-[3.2rem] font-bold text-lux-black leading-tight'>
-                {search.charAt(0).toUpperCase() + search.slice(1)}
+                {search ? search.charAt(0).toUpperCase() + search.slice(1) : category}
               </h1>
               <p className='text-lux-muted text-xs mt-2.5 text-luxury-label tracking-luxury'>
-                Browsing works tagged &ldquo;{search}&rdquo;
-                {category && (
-                  <span className='ml-2 text-gold'>· {category}</span>
+                {search ? (
+                  <>
+                    Browsing works tagged &ldquo;{search}&rdquo;
+                    {category && (
+                      <span className='ml-2 text-gold'>· {category}</span>
+                    )}
+                  </>
+                ) : (
+                  <>Browsing {category} designs</>
                 )}
               </p>
             </div>

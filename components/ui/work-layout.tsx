@@ -25,7 +25,7 @@ export default function WorkLayout({ children }: { children: ReactNode }) {
   return (
     <div
       ref={overlay}
-      className='fixed z-10 left-0 right-0 top-0 bottom-0 mx-auto bg-black/80 hover:cursor-pointer'
+      className='fixed z-[60] left-0 right-0 top-0 bottom-0 mx-auto bg-black/80 hover:cursor-pointer'
       onClick={(e) => handleClick(e)}
     >
       <button
